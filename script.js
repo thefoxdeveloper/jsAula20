@@ -158,47 +158,77 @@ const pedidos = [
 //     }
 //   }
 // }
-
+// (29/01/1992).toLocaleString(en-US)
+// const pedidosdata  = pedidos.filter((pedido)=>pedido.data>= new Date(inicial)&& pedido.date <= new Date(final))
+// const date = new Date("01/29/1992") >= new Date("01/25/1992");
+// console.log(date);
 function cadastrarPedido() {
   let cliente = prompt("Qual seu nome?");
   let validarCliente = pedidos.find((pedido) => pedido.cliente === cliente);
-
-  if (validarCliente) {
-    let produto = prompt("Qual produto você deseja?");
-    let validarProduto = produtos.find((x) => x.nome == produto);
-    if (validarProduto) {
-      let quantidade = Number(prompt("Qual quantidade você deseja?"));
-
+  let produto = prompt("Qual produto você deseja?");
+  let validarProduto = produtos.find((x) => x.nome == produto);
+  if (validarProduto) {
+    let quantidade = Number(prompt("Qual quantidade você deseja?"));
+    if (validarCliente) {
       validarCliente.produtospedidos.push({
         produto,
         quantidade,
       });
-      alert("Produto adicionado com sucesso!");
     } else {
-      alert("Produto não encontrado");
-    }
-  } else {
-    let novoCliente = confirm(
-      "Cliente não encontrado, voque que cadastrar um novo?"
-    );
-    if (novoCliente) {
-      let produto = prompt("Qual produto você deseja?");
-      let validarProduto = produtos.find((x) => x.nome == produto);
-      if (validarProduto) {
-        let quantidade = Number(prompt("Qual quantidade você deseja?"));
-
+      let novoCliente = confirm(
+        "Cliente não encontrado, você que cadastrar um novo?"
+      );
+      if (novoCliente) {
         pedidos.push({
           cliente,
           produtospedidos: [{ produto, quantidade }],
         });
-        alert("Produto adicionado com sucesso!");
-        mostrarPedidos();
       } else {
-        alert("Produto não encontrado");
+        cadastrarPedido();
       }
     }
+
+    alert("Produto adicionado com sucesso!");
+  } else {
+    alert("Produto não encontrado");
   }
 }
+//   if (validarCliente) {
+//     // let produto = prompt("Qual produto você deseja?");
+//     // let validarProduto = produtos.find((x) => x.nome == produto);
+//     if (validarProduto) {
+//       let quantidade = Number(prompt("Qual quantidade você deseja?"));
+
+//       validarCliente.produtospedidos.push({
+//         produto,
+//         quantidade,
+//       });
+//       alert("Produto adicionado com sucesso!");
+//     } else {
+//       alert("Produto não encontrado");
+//     }
+//   } else {
+//     let novoCliente = confirm(
+//       "Cliente não encontrado, voce que cadastrar um novo?"
+//     );
+//     if (novoCliente) {
+//       let produto = prompt("Qual produto você deseja?");
+//       let validarProduto = produtos.find((x) => x.nome == produto);
+//       if (validarProduto) {
+//         let quantidade = Number(prompt("Qual quantidade você deseja?"));
+
+//         pedidos.push({
+//           cliente,
+//           produtospedidos: [{ produto, quantidade }],
+//         });
+//         alert("Produto adicionado com sucesso!");
+//         mostrarPedidos();
+//       } else {
+//         alert("Produto não encontrado");
+//       }
+//     }
+//   }
+// }
 
 if (inicial === 5) {
   cadastrarPedido();
@@ -225,7 +255,7 @@ function somarEstoque(produtos) {
   console.log(soma);
 }
 if (inicial == 6) {
-  console.log(somarEstoque(produtos));
+  console.log(somarEstoque("Total no estoque R$ ", produtos));
 }
 
 if (inicial == 8) {
